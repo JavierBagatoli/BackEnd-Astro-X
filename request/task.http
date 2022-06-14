@@ -1,0 +1,35 @@
+###
+GET http://localhost:3000
+
+###
+GET http://localhost:3000/api/task
+
+###
+POST http://localhost:3000/api/task
+Content-Type: application/json
+
+{
+    "title": "Completada",
+    "description" : "Descripcion 2",
+    "done" : true
+}
+
+###
+GET  http://localhost:3000/api/task/62a8ad4a298c9484a9912d11
+
+###
+DELETE  http://localhost:3000/api/task/62a8ad4a298c9484a9912d11
+
+###
+GET  http://localhost:3000/api/task/DoneTasks
+
+###
+PUT http://localhost:3000/api/task/62a8b929e593b717be3c727d
+Content-Type: application/json
+
+{
+    "title" : "caminar"
+}
+
+###Get all personalizado
+GET http://localhost:3000/api/task?size=1
