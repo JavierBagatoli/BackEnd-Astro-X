@@ -1,30 +1,32 @@
 ###
-GET http://localhost:3000
+GET http://localhost:3001
 
 ###
-GET http://localhost:3000/api/task
+GET http://localhost:3001/api/tareas
 
 ###
-POST http://localhost:3000/api/task
+POST http://localhost:3001/api/tareas
 Content-Type: application/json
 
 {
     "title": "Completada",
     "description" : "Descripcion 2",
-    "done" : true
+    "fechaCreacion": 22,
+    "fechaCompletado": 33,
+    "fechaLimite": 44
 }
 
 ###
-GET  http://localhost:3000/api/task/62a8ad4a298c9484a9912d11
+GET  http://localhost:3001/api/tareas/62a8ad4a298c9484a9912d11
 
 ###
-DELETE  http://localhost:3000/api/task/62a8ad4a298c9484a9912d11
+DELETE  http://localhost:3001/api/tareas/62aa28b58e9ae8e7c939b119
 
 ###
-GET  http://localhost:3000/api/task/DoneTasks
+GET  http://localhost:3001/api/tareas/DoneTasks
 
 ###
-PUT http://localhost:3000/api/task/62a8b929e593b717be3c727d
+PUT http://localhost:3001/api/tareas/62a8b929e593b717be3c727d
 Content-Type: application/json
 
 {
@@ -32,4 +34,59 @@ Content-Type: application/json
 }
 
 ###Get all personalizado
-GET http://localhost:3000/api/task?size=1
+GET http://localhost:3001/api/tareas?size=2
+
+###
+GET http://localhost:3001/api/empleados/Empleados
+
+###
+POST http://localhost:3001/api/empleados/CrearEmpleado
+Content-Type: application/json
+
+{
+    "nombre": "Javier",
+    "apellido": "Bagatoli",
+    "mail":"Javier@mail.com",
+    "pais": "Argentina",
+    "edad": 22,
+    "contrasenia": "Jaja",
+    "puesto":"Caminador",
+    "entorno": ["Lunes", "viernes"],
+    "tareas": [{
+        "title": "Completada",
+        "description" : "Descripcion 2",
+        "fechaCreacion": 22,
+        "fechaCompletado": 33,
+        "fechaLimite": 44
+    },{
+        "title": "Completada2",
+        "description" : "Descripcion 22",
+        "fechaCreacion": 223,
+        "fechaCompletado": 334,
+        "fechaLimite": 445
+    }],
+    "tareasConcluidas": [{
+        "title": "Respirar",
+        "description" : "Descripcion de respirar",
+        "fechaCreacion": 1,
+        "fechaCompletado": 2,
+        "fechaLimite": 3
+    }]
+}
+
+### 
+DELETE http://localhost:3001/api/empleados/62ab86b3f3450ef429f205a1
+
+###
+PUT http://localhost:3001/api/empleados/62ab86b3f3450ef429f205a1
+Content-Type: application/json
+
+
+{
+    
+    "contrasenia": "Jaja",
+    "puesto":"Caminador",
+    "entorno": ["Pana"],
+    "tareas": [""],
+    "tareasConcluidas": []
+}

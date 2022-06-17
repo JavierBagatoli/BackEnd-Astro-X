@@ -4,7 +4,9 @@ import mongoosePaginate from "mongoose-paginate-v2"
 const taskSchema = new Schema({
     title: {type: String, required: true, trim: true},
     description: {type: String, trim: true},
-    done: {type: Boolean, default:false}
+    fechaCreacion: {type: Number},
+    fechaCompletado: {type: Number},
+    fechaLimite: {type: Number}
 },
     {
     versionKey: false,

@@ -1,4 +1,5 @@
-import Task from "../models/Task"
+import Task from "../models/Tarea"
+import Empleado from "../models/Empleado"
 import { getPagination } from "../libs/getPagination"
 
 const mensajeError = (res , text) => {
@@ -7,7 +8,7 @@ const mensajeError = (res , text) => {
     })
 }
 
-const getAllTasks = () => async(req,res) =>{
+export const getTodaslasTareas = () => async(req,res) =>{
     try{
         const {size, page} = req.query;
         const {limit, offset} = getPagination(page,size)
@@ -18,7 +19,7 @@ const getAllTasks = () => async(req,res) =>{
     } 
 }
 
-const createTask = () => async(req,res) => {
+export const crearTarea = () => async(req,res) => {
     if (!req.body.title){
         return res.status(400).send({message : "El titulo no puede ser vacio"})
     }
@@ -27,14 +28,16 @@ const createTask = () => async(req,res) => {
         {
             title: req.body.title,
             description: req.body.description,
-            done : req.body.done ? req.body.done : false
+            fechaCreacion: req.body.fechaCreacion,
+            fechaCompletado: req.body.fechaCompletado ,
+            fechaLimite: req.body.fechaLimite
         })
     const taskSave = await newTask.save()
     console.log(newTask)
     res.json("New task created")
 }
 
-const findOneTask = () => async(req, res) => {
+export const findOneTask = () => async(req, res) => {
     const {id} = req.params; 
     try{
         const task = await Task.findById(id)
@@ -52,7 +55,7 @@ const findOneTask = () => async(req, res) => {
     
 }
 
-const deleteTask = () => async(req, res) => {
+export const deleteTask = () => async(req, res) => {
     
     await Task.findByIdAndDelete(req.params.id)
     res.json(
@@ -61,15 +64,59 @@ const deleteTask = () => async(req, res) => {
 
 }
 
-const findAllDoneTask = () => async(req,res) =>{
+export const findAllDoneTask = () => async(req,res) =>{
     const tasks = await Task.find({done: true})
     res.json(tasks)
 }
 
-const updateTask = () => async(req, res) =>{
+export const updateTask = () => async(req, res) =>{
     await Task.findByIdAndUpdate(req.params.id, req.body)
     res.json({message: "Tarea actualizado"})
 }
 
-export {getAllTasks, createTask, findOneTask, deleteTask, findAllDoneTask, updateTask}
+
+
+export const getTodosEmpleados = () => async(req,res) =>{
+    try{
+        const {size, page} = req.query;
+        const {limit, offset} = getPagination(page,size)
+        const empleados = await Empleado.paginate({} , {offset,limit})
+        res.json(empleados)
+    } catch (error){
+        mensajeError(res , "Algo salio mal al traer los empleados")
+    } 
+}
+
+export const crearEmpleado = () => async(req,res) => {
+    const newEmpleado = new Empleado(
+        {
+            nombre: req.body.nombre,
+            apellido: req.body.apellido,
+            mail: req.body.mail,
+            pais: req.body.pais,
+            edad:  req.body.edad,
+            contraseña: req.body.constraseña,
+            puesto: req.body.puesto,
+            entorno:  req.body.entorno,
+            tareas:  req.body.tareas,
+            tareasConcluidas: req.body.tareasConcluidas
+        })
+    const empleadoGuardado = await newEmpleado.save()
+    console.log(newEmpleado)
+    res.json("Empleado Creado")
+}
+
+export const borrarEmpleado = () => async(req, res) => {
+    await Empleado.findByIdAndDelete(req.params.id)
+    res.json(
+        {message: `${req.params.id} Empleado eliminado`}
+        )
+
+}
+
+export const actualizarEmpleado = () => async(req, res) =>{
+    await Empleado.findByIdAndUpdate(req.params.id, req.body)
+    res.json({message: "Empleado actualizado"})
+}
+ 
 
