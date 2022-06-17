@@ -22,7 +22,7 @@ app.get("/", (req,res) => {
     res.json({message: "Inicio"})
 })
 
-app.use("/api/empleados",IndexRoutes)
+app.use("/api/empleados",IndexEmpleadoRoutes)
 
 app.use("/api/tareas",IndexRoutes)
 

@@ -1,7 +1,7 @@
 import {Schema, model} from "mongoose"
 import mongoosePaginate from "mongoose-paginate-v2"
 
-const taskSchema = new Schema({
+const EmpleadoSchema = new Schema({
     nombre: {type: String, required: true, trim: true},
     apellido: {type: String, trim: true},
     mail: {type: String, required: true},
@@ -18,5 +18,5 @@ const taskSchema = new Schema({
     versionKey: false,
     timestamps: true
 })
-taskSchema.plugin(mongoosePaginate)
-export default model("Empleado", taskSchema)
+EmpleadoSchema.plugin(mongoosePaginate)
+export default model("Empleado", EmpleadoSchema)
