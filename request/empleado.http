@@ -1,0 +1,157 @@
+###
+GET http://localhost:3001/api/empleados/Empleados?size=5
+
+###
+GET http://localhost:3001/api/empleados/62b372008efd2e660b55a102
+
+###
+POST http://localhost:3001/api/empleados/CrearEmpleado
+Content-Type: application/json
+
+{
+    "nombre": "Javier",
+    "apellido": "Bagatoli",
+    "mail": "javier@mail.com",
+    "pais": "Argentina",
+    "nacimiento": 55,
+    "contraseña": "123",
+    "puesto": "Caminador",
+    "entorno": [
+    "Lunes",
+    "viernes"
+    ],
+    "tareas": [{
+        "title": "A completar",
+        "description" : "Descripcion 2",
+        "fechaCreacion": 22,
+        "fechaCompletado": 33,
+        "fechaLimite": 44
+    },{
+        "title": "Mision de caminar",
+        "description" : "Descripcion 22",
+        "fechaCreacion": 223,
+        "fechaCompletado": 334,
+        "fechaLimite": 445
+    }],
+    "tareasConcluidas": [{
+        "title": "Respirar",
+        "description" : "Descripcion de respirar",
+        "fechaCreacion": 1,
+        "fechaCompletado": 2,
+        "fechaLimite": 3
+    }]
+}
+
+### 
+DELETE http://localhost:3001/api/empleados/62b3313d026a93920acda8cf
+
+###
+PUT http://localhost:3001/api/empleados/62aca1643a1425d614b183c1
+Content-Type: application/json
+
+
+{
+    
+    "contrasenia": "Jaja",
+    "puesto":"SaraSara",
+    "entorno": ["Pana"],
+    "tareas": [""],
+    "tareasConcluidas": []
+}
+
+###
+POST http://localhost:3001/api/empleados/Validar
+Content-Type: application/json
+
+{
+    "mail": "jovier@mail.com",
+    "contraseña" : "jovier@mail.com"
+}
+
+###
+POST http://localhost:3001/api/empleados/ExisteMail
+Content-Type: application/json
+
+{
+    "mail": "javier@mail.com"
+}
+
+###
+PUT http://localhost:3001/api/empleados/agregarTarea
+Content-Type: application/json
+
+{
+    "mail": "jovier@mail.com",
+    "tarea": 
+        {
+          "fechaCreacion": 2,
+        }
+    
+}
+
+###
+PUT http://localhost:3001/api/empleados/quitarTarea
+Content-Type: application/json
+
+{
+    "mail": "jovier@mail.com",
+    "tarea": 
+        {
+          "title": "A completar",
+          "description": "Descripcion 2",
+          "fechaCreacion": 2,
+          "fechaCompletado": 33,
+          "fechaLimite": 44
+        }
+    
+}
+
+###
+PUT http://localhost:3001/api/empleados/completarTarea
+Content-Type: application/json
+
+{
+    "mail": "Juan@asd.com",
+    "tarea": 
+        {
+          "title": "A completar",
+          "description": "Descripcion 2 mejorada",
+          "fechaCreacion": 22,
+          "fechaCompletado": 99,
+          "fechaLimite": 88
+        }
+    
+}
+###
+PUT http://localhost:3001/api/empleados/descompletarTarea
+Content-Type: application/json
+
+{
+    "mail": "Juan@asd.com",
+    "tarea": 
+        {
+          "title": "A completar",
+          "description": "Descripcion 2 mejorada",
+          "fechaCreacion": 22,
+          "fechaCompletado": 99,
+          "fechaLimite": 88
+        }
+    
+}
+
+###
+PUT http://localhost:3001/api/empleados/modificarTarea
+Content-Type: application/json
+
+{
+    "mail": "Juan@asd.com",
+    "tarea": 
+        {
+          "titulo": "Vamos a comprobar version dos",
+          "description": "Descripcion bien redactada",
+          "fechaCreacion": 22,
+          "fechaCompletado": null,
+          "fechaLimite": 150
+        }
+    
+}

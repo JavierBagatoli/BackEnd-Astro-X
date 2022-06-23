@@ -1,7 +1,7 @@
 import express from "express"
 import morgan from "morgan"
 import cors from "cors"
-import IndexEmpleadoRoutes from "./routes/Empleado.routes"
+import IndexEmpeladosRutas from "./routes/Empleado.rutas"
 import IndexRoutes from "./routes/Task.routes"
 
 const app = express()
@@ -22,7 +22,7 @@ app.get("/", (req,res) => {
     res.json({message: "Inicio"})
 })
 
-app.use("/api/empleados",IndexEmpleadoRoutes)
+app.use("/api/empleados",IndexEmpeladosRutas)
 
 app.use("/api/tareas",IndexRoutes)
 
