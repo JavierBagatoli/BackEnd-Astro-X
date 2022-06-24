@@ -43,9 +43,13 @@ export const crearEmpleado = () => async(req,res) => {
 }
 
 export const traerEmpleado = () => async(req, res) => {
-    const empleado = await Empleado.findById(req.params.id)
-    empleado.contraseña = ""
-    res.json(empleado)
+    try{
+        const empleado = await Empleado.findById(req.params.id)
+        empleado.contraseña = ""
+        res.json(empleado)
+    }catch(e){
+        res.json({message: `El empleado no ha sido encontrado ${e}`})
+    }
 }
 
 export const borrarEmpleado = () => async(req, res) => {
@@ -61,16 +65,20 @@ export const actualizarEmpleado = () => async(req, res) =>{
 }
 
 export const validarUsuario = () => async(req, res) => {
-    const mailUsuario = req.body.mail
-    const contraseñaUsuario = req.body.contraseña
-    
-    const empleado = await Empleado.findOne({mail: `${mailUsuario}`})
+    try{
+        const mailUsuario = req.body.mail
+        const contraseñaUsuario = req.body.contraseña
+        
+        const empleado = await Empleado.findOne({mail: `${mailUsuario}`})
 
-    let esValido = await bcrypt.compare(contraseñaUsuario, empleado.contraseña)
-        .then(res => res)
-    if (esValido){
-        res.json(empleado)
-    }else{
+        let esValido = await bcrypt.compare(contraseñaUsuario, empleado.contraseña)
+            .then(res => res)
+        if (esValido){
+            res.json(empleado)
+        }else{
+            res.json({respuesta : "Error al iniciar sesión"})
+        }
+    }catch(e){
         res.json({respuesta : "Error al iniciar sesión"})
     }
 }

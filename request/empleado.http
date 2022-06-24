@@ -43,7 +43,7 @@ Content-Type: application/json
 }
 
 ### 
-DELETE http://localhost:3001/api/empleados/62b3313d026a93920acda8cf
+DELETE http://localhost:3001/api/empleados/62b372008efd2e660b55a102
 
 ###
 PUT http://localhost:3001/api/empleados/62aca1643a1425d614b183c1
@@ -51,12 +51,11 @@ Content-Type: application/json
 
 
 {
-    
+    "nombre": "Fausto",
+    "apellido": "Faustino",
+    "mail": "Fausto@gmail.com",
     "contrasenia": "Jaja",
     "puesto":"SaraSara",
-    "entorno": ["Pana"],
-    "tareas": [""],
-    "tareasConcluidas": []
 }
 
 ###
