@@ -2,7 +2,7 @@
 GET http://localhost:3001/api/empleados/Empleados?size=5
 
 ###
-GET http://localhost:3001/api/empleados/62b372008efd2e660b55a102
+GET http://localhost:3001/api/empleados/62b4b0257469710e0f3007ee
 
 ###
 POST http://localhost:3001/api/empleados/CrearEmpleado
@@ -43,19 +43,15 @@ Content-Type: application/json
 }
 
 ### 
-DELETE http://localhost:3001/api/empleados/62b372008efd2e660b55a102
+DELETE http://localhost:3001/api/empleados/62b4b0257469710e0f3007ee
 
 ###
-PUT http://localhost:3001/api/empleados/62aca1643a1425d614b183c1
+PUT http://localhost:3001/api/empleados/ActualizarEmpleado
 Content-Type: application/json
 
-
 {
-    "nombre": "Fausto",
-    "apellido": "Faustino",
-    "mail": "Fausto@gmail.com",
-    "contrasenia": "Jaja",
-    "puesto":"SaraSara",
+    "mail": "javbag@gmail.com",
+    "pais": "Colombia"
 }
 
 ###

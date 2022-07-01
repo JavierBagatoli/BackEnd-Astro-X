@@ -1,44 +1,55 @@
-import {Schema, model} from "mongoose"
-import mongoosePaginate from "mongoose-paginate-v2"
+import { Schema, model } from "mongoose";
+import mongoosePaginate from "mongoose-paginate-v2";
 
-const EmpleadoEsquema = new Schema({
+const EmpleadoEsquema = new Schema(
+  {
     nombre: {
-        type: String,
-        required: true,
-        trim: true},
+      type: String,
+      required: true,
+      trim: true,
+    },
     apellido: {
-        type: String,
-        required: true,
-        trim: true},
+      type: String,
+      required: true,
+      trim: true,
+    },
     mail: {
-        type: String,
-        required: true,
-        trim: true,
-        unique: true,},
+      type: String,
+      required: true,
+      trim: true,
+      unique: true,
+    },
     pais: {
-        type : String},
+      type: String,
+      required: true,
+      trim: true,
+    },
     nacimiento: {
-        type: Number,
-        trim: true},
+      type: Number,
+      required: true,
+      trim: true,
+    },
     contraseña: {
-        type: String,
-        required: true,
-        trim: true},
+      type: String,
+      required: true,
+      trim: true,
+    },
     puesto: {
-        type: String,
-        required: true,
-        trim: true},
+      type: String,
+      required: true,
+      trim: true,
+    },
     entorno: {
-        type: Array},
+      type: Array,
+    },
     tareas: {
-        type: Array},
-    tareasConcluidas: {
-        type: Array},
-
-},
-    {
+      type: Array,
+    },
+  },
+  {
     versionKey: false,
-    timestamps: true
-})
-EmpleadoEsquema.plugin(mongoosePaginate)
-export default model("Empleado", EmpleadoEsquema)
+    timestamps: true,
+  }
+);
+EmpleadoEsquema.plugin(mongoosePaginate);
+export default model("Empleado", EmpleadoEsquema);
