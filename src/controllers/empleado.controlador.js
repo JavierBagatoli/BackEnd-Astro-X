@@ -13,7 +13,7 @@ export const getTodosEmpleados = () => async (req, res) => {
     const { size, page } = req.query;
     const { limit, offset } = getPagination(page, size);
     const empleados = await Empleado.paginate({}, { offset, limit });
-    res.json(empleados).end();
+    res.status(200).json(empleados).end();
   } catch (error) {
     mensajeError(res, "Algo salio mal al traer los empleados");
   }
@@ -34,8 +34,7 @@ export const crearEmpleado = () => async (req, res) => {
       tareasConcluidas: req.body.tareasConcluidas,
     });
     const empleadoGuardado = await newEmpleado.save();
-    console.log(newEmpleado);
-    res.json("Empleado Creado");
+    res.status(200).json("Empleado Creado");
   } catch (e) {
     res.json(e);
   }
@@ -45,32 +44,38 @@ export const traerEmpleado = () => async (req, res) => {
   try {
     const empleado = await Empleado.findById(req.params.id);
     empleado.contraseña = "";
-    res.json(empleado);
+    res.status(200).json(empleado);
   } catch (e) {
-    res.json({ message: `El empleado no ha sido encontrado ${e}` });
+    res.status(500).json({ message: `El empleado no ha sido encontrado ${e}` });
   }
 };
 
 export const borrarEmpleado = () => async (req, res) => {
-  const empleado = await Empleado.findByIdAndDelete(req.params.id);
-  res.json({ message: `${req.params.id} Empleado eliminado` });
+  try{
+    const empleado = await Empleado.findByIdAndDelete(req.params.id);
+    res.status(200).json({ message: `${req.params.id} Empleado eliminado` });
+  }catch(e){
+    res.status(500).json({ message: `El empleado no ha sido encontrado ${e}` });
+  }
+  
 };
 
 export const actualizarEmpleado = () => async (req, res) => {
+  const idEmpleado = req.params.id;
+  
   try {
-    const idEmpleado = req.params.id;
     await Empleado.findByIdAndUpdate(idEmpleado, req.body);
-    res.json({ message: "Empleado actualizado" });
+    res.status(200).json({ message: "Empleado actualizado" });
   } catch (e) {
-    console.log("Error al actualizar empleado: ", e);
+    res.status(500).json({ message: `Error al actualizar empleado: ${e}`});
   }
 };
 
 export const validarUsuario = () => async (req, res) => {
-  try {
-    const mailUsuario = req.body.mail;
-    const contraseñaUsuario = req.body.contraseña;
+  const mailUsuario = req.body.mail;
+  const contraseñaUsuario = req.body.contraseña;
 
+  try {
     const empleado = await Empleado.findOne({
       mail: `${mailUsuario}`,
     });
@@ -78,37 +83,49 @@ export const validarUsuario = () => async (req, res) => {
       .compare(contraseñaUsuario, empleado.contraseña)
       .then((res) => res);
     if (esValido) {
-      res.json(empleado);
+      res.status(200).json(empleado);
     } else {
-      res.json({ respuesta: "Error al iniciar sesión" });
+      res.status(203).json({ respuesta: "Error al iniciar sesión" });
     }
   } catch (e) {
-    res.json({ respuesta: "Error al iniciar sesión" });
+    res.status(500).json({ respuesta: "Error al iniciar sesión" });
   }
 };
 
 export const existeMail = () => async (req, res) => {
   const mailUsuario = req.body.mail;
-  const empleado = await Empleado.findOne({ mail: `${mailUsuario}` });
   let respuesta;
-  if (empleado !== null) {
-    respuesta = "Ya existe";
-  } else {
-    respuesta = "No existe";
+
+  try{
+    const empleado = await Empleado.findOne({ mail: `${mailUsuario}` });
+    if (empleado !== null) {
+      respuesta = "Ya existe";
+    } else {
+      respuesta = "No existe";
+    }
+    res.status(200).json({ respuesta: `${respuesta}` });
+
+  }catch(e){
+    res.status(500).json({ respuesta: "Eror de servidor: " , e })
   }
-  res.json({ respuesta: `${respuesta}` });
+  
 };
 
 export const agregarTarea = () => async (req, res) => {
-  const mailUsuario = req.body.mail;
-  const nuevaTarea = req.body.tarea;
-  const tareasEmpleado = await Empleado.findOne({ mail: `${mailUsuario}` });
-  let nuevaListaTareas = [...tareasEmpleado.tareas, nuevaTarea];
-  await Empleado.findOneAndUpdate(
-    { mail: `${mailUsuario}` },
-    { tareas: nuevaListaTareas }
-  );
-  res.json({ message: "Tarea agregada" });
+  try{
+    const mailUsuario = req.body.mail;
+    const nuevaTarea = req.body.tarea;
+    const tareasEmpleado = await Empleado.findOne({ mail: `${mailUsuario}` });
+    let nuevaListaTareas = [...tareasEmpleado.tareas, nuevaTarea];
+    await Empleado.findOneAndUpdate(
+      { mail: `${mailUsuario}` },
+      { tareas: nuevaListaTareas }
+    );
+    res.status(200).json({ message: "Tarea agregada" });
+  }catch(e){
+    res.status(500).json({ message: "Fallo al agregar tarea" });
+  }
+  
 };
 
 export const quitarTarea = () => async (req, res) => {
