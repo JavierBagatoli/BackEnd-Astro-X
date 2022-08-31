@@ -19,7 +19,7 @@
   "scripts": {
     "dev": "nodemon src/index.js --exec babel-node",
     "build": "babel src --out-dir dist",
-    "server" : "node dist/index.js",
+    "server" : "node ./dist/index.js",
     "start": "npm run build & npm run server "
   }
 }
