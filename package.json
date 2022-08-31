@@ -17,9 +17,10 @@
     "nodemon": "^2.0.16"
   },
   "scripts": {
+    
     "dev": "nodemon src/index.js --exec babel-node",
     "build": "babel src --out-dir dist",
-    "server" : "node ./dist/index.js",
+    "server" : "babel-node ./dist/index.js",
     "start": "npm run build & npm run server "
   }
 }
